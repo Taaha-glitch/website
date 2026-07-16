@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mori Contracting Inc. — Quality Craftsmanship</title>
+  <style>
+/* =============================================
+   MORI CONTRACTING INC. — STYLESHEET
+   ============================================= */
+
+:root {
+  --cream: #F5F0E8;
+  --dark: #1A1A18;
+  --warm: #2C2A24;
+  --gold: #C49A3C;
+  --gold-light: #E8C06A;
+  --rust: #8B4A2A;
+  --text: #3A3830;
+  --text-light: #6B6458;
+  --white: #FFFFFF;
+  --border: #DDD8CC;
+  --card-bg: #FAF7F2;
+  --shadow: 0 4px 24px rgba(26,26,24,0.10);
+  --shadow-lg: 0 12px 48px rgba(26,26,24,0.16);
+  --radius: 4px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: 90%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* ---- NAV ---- */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+#navbar.scrolled {
+  background: rgba(245, 240, 232, 0.97);
+  box-shadow: 0 2px 16px rgba(26,26,24,0.10);
+  backdrop-filter: blur(8px);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 90%; max-width: 1160px; margin: 0 auto;
+  padding: 20px 0;
+}
+.logo {
+  display: flex; align-items: baseline; gap: 2px;
+  font-family: var(--font-display);
+}
+.logo-m {
+  font-size: 2rem; font-weight: 900; color: var(--gold);
+  line-height: 1;
+}
+.logo-text {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--dark); text-transform: uppercase;
+}
+.logo-sub { display: none; }
+.nav-links {
+  list-style: none; display: flex; align-items: center; gap: 36px;
+}
+.nav-links a {
+  font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--dark) !important; color: var(--cream) !important;
+  padding: 10px 22px !important; border-radius: var(--radius);
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--gold) !important; color: var(--dark) !important; }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px; background: var(--dark);
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- HERO ---- */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  background: var(--dark);
+  padding: 120px 20px 80px;
+}
+.hero-bg { position: absolute; inset: 0; pointer-events: none; }
+.hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(196,154,60,0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(196,154,60,0.07) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-content { position: relative; z-index: 2; text-align: center; max-width: 760px; }
+.hero-eyebrow {
+  font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 20px;
+  opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900; color: var(--cream);
+  line-height: 1.05; margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.9s 0.25s forwards;
+}
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(245,240,232,0.7);
+  max-width: 560px; margin: 0 auto 40px;
+  opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+}
+.hero-btns {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.9s 0.55s forwards;
+}
+.btn-primary {
+  display: inline-block; background: var(--gold); color: var(--dark);
+  font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em;
+  padding: 15px 32px; border-radius: var(--radius);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(196,154,60,0.35);
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(196,154,60,0.4);
+}
+.btn-ghost {
+  display: inline-block; background: transparent; color: var(--cream);
+  font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em;
+  padding: 14px 30px; border-radius: var(--radius);
+  border: 1.5px solid rgba(245,240,232,0.3);
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.scroll-hint {
+  position: absolute; bottom: 36px; right: 48px;
+  display: flex; flex-direction: column; align-items: center;
+  opacity: 0; animation: fadeIn 1s 1.2s forwards;
+}
+.scroll-line {
+  display: block; width: 1.5px; height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s 1.5s infinite;
+}
+
+/* ---- ABOUT ---- */
+#about { padding: 100px 0; background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-img-wrap { position: relative; }
+.about-photo-placeholder {
+  width: 100%; aspect-ratio: 4/5; background: #D4CFC5;
+  border-radius: 2px; overflow: hidden; position: relative;
+}
+.about-photo-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.about-photo-placeholder.no-img img { display: none; }
+.placeholder-label {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: var(--text-light); font-size: 0.85rem; text-align: center; line-height: 1.8;
+}
+.about-photo-placeholder:not(.no-img) .placeholder-label { display: none; }
+
+.about-accent-box {
+  position: absolute; bottom: -24px; right: -24px;
+  background: var(--gold); color: var(--dark);
+  padding: 24px 28px; text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.about-accent-box strong {
+  display: block; font-family: var(--font-display);
+  font-size: 2.5rem; font-weight: 900; line-height: 1;
+}
+.about-accent-box span {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 12px;
+}
+.section-eyebrow.center { text-align: center; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800; color: var(--dark); line-height: 1.15; margin-bottom: 20px;
+}
+.section-title.center { text-align: center; }
+.section-sub {
+  font-size: 1rem; color: var(--text-light); max-width: 540px;
+  margin-bottom: 48px;
+}
+.section-sub.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+.about-text p { color: var(--text-light); margin-bottom: 16px; }
+.about-checks { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.about-checks li { font-weight: 500; font-size: 0.95rem; }
+
+/* ---- SERVICES ---- */
+#services { padding: 100px 0; background: var(--warm); }
+#services .section-eyebrow, #services .section-title { color: var(--cream); }
+#services .section-sub { color: rgba(245,240,232,0.75); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.service-card {
+  background: rgba(245,240,232,0.06); border: 1px solid rgba(196,154,60,0.25);
+  padding: 32px 28px; border-radius: var(--radius);
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  cursor: default;
+}
+.service-card:hover {
+  background: rgba(196,154,60,0.12);
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.service-icon { font-size: 2rem; margin-bottom: 14px; }
+.service-card h3 {
+  font-family: var(--font-display); font-size: 1.15rem;
+  font-weight: 700; color: var(--cream); margin-bottom: 8px;
+}
+.service-card p {
+  font-size: 0.9rem;
+  color: rgba(245,240,232,0.85);
+  line-height: 1.6;
+}
+
+/* ---- GALLERY ---- */
+#gallery { padding: 100px 0; background: var(--cream); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item {
+  aspect-ratio: 1; overflow: hidden; background: #D4CFC5;
+  border-radius: var(--radius); position: relative;
+  cursor: pointer;
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item.empty img { display: none; }
+.gallery-empty-label {
+  position: absolute; inset: 0; display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  color: var(--text-light); font-size: 0.82rem; text-align: center; line-height: 2;
+}
+.gallery-item.empty .gallery-empty-label { display: flex; }
+
+.gallery-item.extra-photo { display: none; }
+.gallery-grid.expanded .gallery-item.extra-photo { display: block; animation: fadeUp 0.5s forwards; }
+.gallery-more-wrap { text-align: center; margin-top: 32px; }
+.btn-view-more {
+  background: transparent; color: var(--dark);
+  border: 1.5px solid var(--dark);
+  font-family: var(--font-body); font-weight: 700;
+  font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 13px 34px; border-radius: var(--radius);
+  cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-view-more:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.gallery-item.empty.extra-photo { }
+
+
+/* ---- QUOTE ---- */
+#quote { padding: 100px 0; background: var(--dark); }
+.quote-wrapper { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+.quote-left .section-eyebrow { color: var(--gold); }
+.quote-left .section-title { color: var(--cream); margin-bottom: 16px; }
+.quote-left p { color: rgba(245,240,232,0.65); margin-bottom: 28px; }
+.quote-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.quote-perks li { font-size: 0.95rem; color: rgba(245,240,232,0.8); }
+
+.quote-form { background: var(--cream); padding: 40px 36px; border-radius: var(--radius); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; margin-bottom: 18px; }
+.form-group label {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text); margin-bottom: 6px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1.5px solid var(--border); background: var(--white);
+  padding: 11px 14px; font-family: var(--font-body); font-size: 0.95rem;
+  color: var(--text); border-radius: var(--radius);
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; }
+
+.label-hint { font-size: 0.72rem; font-weight: 400; color: var(--text-light); text-transform: none; letter-spacing: 0; }
+
+.service-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.checkbox-item {
+  display: flex; align-items: center; gap: 9px;
+  background: var(--white); border: 1.5px solid var(--border);
+  padding: 9px 12px; border-radius: var(--radius);
+  cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  font-size: 0.88rem; font-weight: 400; color: var(--text);
+  user-select: none;
+}
+.checkbox-item:hover { border-color: var(--gold); }
+.checkbox-item input[type="checkbox"] { display: none; }
+.checkbox-item.checked { background: #FDF6E8; border-color: var(--gold); font-weight: 500; color: var(--dark); }
+.checkbox-item.checked::before { content: '✔'; font-size: 0.7rem; color: var(--gold); min-width: 14px; }
+.service-error { display: none; color: #c0392b; font-size: 0.78rem; margin-top: 6px; font-family: var(--font-body); }
+.service-error.visible { display: block; }
+
+.btn-primary.full-width { width: 100%; text-align: center; display: block; }
+.form-note { font-size: 0.78rem; color: var(--text-light); text-align: center; margin-top: 12px; }
+.form-success { display: none; text-align: center; margin-top: 16px; color: #2E7D32; font-weight: 600; font-size: 0.95rem; }
+
+/* ---- FOOTER ---- */
+#footer { background: #111110; color: rgba(245,240,232,0.6); padding: 60px 0 0; }
+.footer-inner {
+  display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand .logo-m { font-size: 1.8rem; color: var(--gold); font-family: var(--font-display); font-weight: 900; }
+.footer-brand .logo-text { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.14em; color: var(--cream); }
+.footer-brand p { font-size: 0.87rem; margin-top: 12px; }
+
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 0.88rem; color: rgba(245,240,232,0.6); transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+
+.footer-contact { display: flex; flex-direction: column; gap: 10px; }
+.footer-contact p { font-size: 0.88rem; }
+.footer-contact a { color: rgba(245,240,232,0.6); transition: color 0.2s; }
+.footer-contact a:hover { color: var(--gold); }
+
+.footer-bottom { padding: 20px 0; text-align: center; font-size: 0.78rem; color: rgba(245,240,232,0.3); }
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scrollPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 56px; }
+  .about-img-wrap { max-width: 480px; margin: 0 auto; }
+  .quote-wrapper { grid-template-columns: 1fr; gap: 48px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none; flex-direction: column; gap: 0;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--cream); justify-content: center; align-items: center;
+    z-index: 99;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; text-align: center; }
+  .nav-links a { display: block; padding: 18px; font-size: 1.1rem; }
+  .nav-cta { background: var(--dark) !important; color: var(--cream) !important; }
+  .hamburger { display: flex; z-index: 101; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .service-checkboxes { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .scroll-hint { display: none; }
+}
+
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="logo">
+        <span class="logo-m">M</span><span class="logo-text">ORI</span>
+        <span class="logo-sub">CONTRACTING INC.</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-grain"></div>
+      <div class="hero-lines"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">25+ Years of Trusted Craftsmanship</p>
+      <h1 class="hero-title">
+        Built Right.<br/>
+        <em>Every Time.</em>
+      </h1>
+      <p class="hero-sub">Hardwood floors, custom stairs, railings, carpentry &amp; more — serving the Greater Toronto Area with honest work and lasting results.</p>
+      <div class="hero-btns">
+        <a href="#quote" class="btn-primary">Book a Free Quote</a>
+        <a href="#services" class="btn-ghost">Our Services</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-hint" aria-label="Scroll down">
+      <span class="scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-img-wrap">
+        <div class="about-photo-placeholder">
+          <img src="about.jpg" alt="The owner of Mori Contracting Inc., serving the GTA for over 25 years" onerror="this.parentElement.classList.add('no-img')" />
+          <div class="placeholder-label">📷 Add your photo here<br/><small>Replace about.jpg</small></div>
+        </div>
+        <div class="about-accent-box">
+          <strong>25+</strong>
+          <span>Years of Experience</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-eyebrow">Who We Are</p>
+        <h2 class="section-title">Craftsmanship You Can Stand On</h2>
+        <p>Mori Contracting Inc. has been delivering quality renovation and finishing work across the Greater Toronto Area for over 25 years. Every project gets the same care and attention — whether it's a single door or a full basement.</p>
+        <p>With decades of hands-on experience, Mori Contracting brings the kind of skill and reliability that only comes from doing this work day in, day out for a long time.</p>
+        <ul class="about-checks">
+          <li>✔ Free, no-obligation quotes</li>
+          <li>✔ Clean, respectful job sites</li>
+          <li>✔ Fair pricing — no surprises</li>
+          <li>✔ Work we're proud to put our name on</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <p class="section-eyebrow center">What We Do</p>
+      <h2 class="section-title center">Our Services</h2>
+      <p class="section-sub center">From full basement finishes to a single door install — we handle it all with the same level of care.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🪵</div>
+          <h3>Hardwood Flooring</h3>
+          <p>Supply, installation, and refinishing of hardwood floors in any room.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3>Stairs &amp; Railings</h3>
+          <p>Custom stair builds and railing installations — wood, metal, and mixed.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔨</div>
+          <h3>Demolition</h3>
+          <p>Selective or full demolition to prep your space for a renovation.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🪟</div>
+          <h3>Doors &amp; Door Frames</h3>
+          <p>Interior and exterior door installation and frame (jamb) fitting.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>Basement Finishing</h3>
+          <p>Turn your unfinished basement into livable, comfortable space.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📐</div>
+          <h3>Trim &amp; Carpentry</h3>
+          <p>Baseboards, casings, window trim, capping — clean and precise finish carpentry.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3>Low-Level Painting</h3>
+          <p>Walls, trim, and ceilings painted to a smooth, professional finish.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🧱</div>
+          <h3>Drywall</h3>
+          <p>Drywall installation, taping, mudding, and finishing — smooth and ready to paint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <p class="section-eyebrow center">Our Work</p>
+      <h2 class="section-title center">Project Gallery</h2>
+      <p class="section-sub center">Photos of completed projects. More added regularly.</p>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-item"><img src="photo1.jpg" alt="Custom oak staircase with wrought iron balusters by Mori Contracting" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo1.jpg</small></div></div>
+        <div class="gallery-item"><img src="photo2.jpg" alt="Curved hardwood staircase with iron railing, Greater Toronto Area" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo2.jpg</small></div></div>
+        <div class="gallery-item"><img src="photo3.jpg" alt="Modern bathroom vanity and tile work" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo3.jpg</small></div></div>
+        <div class="gallery-item"><img src="photo4.jpg" alt="Curved staircase with dark stained treads and iron railing" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo4.jpg</small></div></div>
+        <div class="gallery-item"><img src="photo5.jpg" alt="Living room feature wall with marble and wood slat panelling" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo5.jpg</small></div></div>
+        <div class="gallery-item"><img src="photo6.jpg" alt="Hardwood flooring installation with tile transition" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo6.jpg</small></div></div>
+        <div class="gallery-item extra-photo"><img src="photo7.jpg" loading="lazy" alt="Curved oak staircase and railing, overhead view" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo7.jpg</small></div></div>
+        <div class="gallery-item extra-photo"><img src="photo8.jpg" loading="lazy" alt="Hardwood curved staircase with iron balusters" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo8.jpg</small></div></div>
+        <div class="gallery-item extra-photo"><img src="photo9.jpg" loading="lazy" alt="Custom oak railings and balusters, second floor landing" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo9.jpg</small></div></div>
+        <div class="gallery-item extra-photo"><img src="photo10.jpg" loading="lazy" alt="Glass shower enclosure with marble tile" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo10.jpg</small></div></div>
+        <div class="gallery-item extra-photo"><img src="photo11.jpg" loading="lazy" alt="Vinyl plank flooring with baseboard installation" onerror="this.parentElement.classList.add('empty')" /><div class="gallery-empty-label">📷 Add photo<br/><small>photo11.jpg</small></div></div>
+      </div>
+      <div class="gallery-more-wrap">
+        <button class="btn-view-more" id="btn-view-more">View All 11 Photos ↓</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE FORM -->
+  <section id="quote">
+    <div class="container">
+      <div class="quote-wrapper">
+        <div class="quote-left">
+          <p class="section-eyebrow">Let's Talk</p>
+          <h2 class="section-title">Book a Free Quote</h2>
+          <p>Fill out the form and we'll get back to you within 24 hours to set up a time that works for you.</p>
+          <ul class="quote-perks">
+            <li>📞 Quick response time</li>
+            <li>💰 No-obligation estimate</li>
+            <li>🗓️ Flexible scheduling</li>
+          </ul>
+        </div>
+
+        <!--
+        ============================================================
+        HOW TO RECEIVE QUOTE REQUESTS BY EMAIL (free, ~3 minutes):
+        ============================================================
+        1. Go to https://formspree.io and sign up (free)
+        2. Click "New Form", give it a name like "Mori Quote Requests"
+        3. Enter your dad's email address
+        4. Copy the Form ID shown (looks like: xpzgkwqr)
+        5. Replace YOUR_FORM_ID below with that ID
+        6. Save and re-upload index.html to GitHub
+        Done! Every submission emails your dad instantly.
+        ============================================================
+        -->
+        <form class="quote-form" id="quote-form" action="https://formspree.io/f/xykrkpzp" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" name="first_name" required placeholder="John" />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name *</label>
+              <input type="text" id="lname" name="last_name" required placeholder="Smith" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(416) 555-0100" />
+          </div>
+
+          <!-- MULTI-SELECT SERVICES -->
+          <div class="form-group">
+            <label>Services Needed * <span class="label-hint">(select all that apply)</span></label>
+            <div class="service-checkboxes" id="service-checkboxes">
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Hardwood Flooring" /><span>Hardwood Flooring</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Stairs & Railings" /><span>Stairs &amp; Railings</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Demolition" /><span>Demolition</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Doors & Door Frames" /><span>Doors &amp; Door Frames</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Basement Finishing" /><span>Basement Finishing</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Trim & Carpentry" /><span>Trim &amp; Carpentry</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Baseboard & Casings" /><span>Baseboard &amp; Casings</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Window Casing" /><span>Window Casing</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Painting" /><span>Painting</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Drywall & Capping" /><span>Drywall &amp; Capping</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services[]" value="Not Sure" /><span>Not Sure / Other</span></label>
+            </div>
+            <p class="service-error" id="service-error">Please select at least one service.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Tell Us About Your Project</label>
+            <textarea id="message" name="message" rows="4" placeholder="Describe your project — what rooms, rough size, timeline, any other details that would help…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary full-width">Send My Request →</button>
+          <p class="form-note">We'll respond within 24 hours. No spam, ever.</p>
+          <div class="form-success" id="form-success">
+            ✅ Thanks! We'll be in touch shortly.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-m">M</span><span class="logo-text">ORI CONTRACTING INC.</span>
+        <p>Quality carpentry &amp; renovation in the GTA.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#quote">Get a Quote</a>
+      </div>
+      <div class="footer-contact">
+        <!-- REPLACE with real contact info -->
+        <p>📞 <a href="tel:+14165550100">(416) 555-0100</a></p>
+        <p>✉️ <a href="mailto:info@moricontracting.ca">info@moricontracting.ca</a></p>
+        <p>📍 Greater Toronto Area, ON</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Mori Contracting Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+// =============================================
+// MORI CONTRACTING INC. — MAIN JS
+// =============================================
+
+// --- Sticky Nav ---
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// --- Mobile Menu ---
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// --- Multi-select Service Checkboxes ---
+document.querySelectorAll('.checkbox-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('checked');
+    const cb = item.querySelector('input[type="checkbox"]');
+    cb.checked = item.classList.contains('checked');
+    document.getElementById('service-error').classList.remove('visible');
+  });
+});
+
+
+// --- Gallery: show/hide extra photos ---
+const btnViewMore = document.getElementById('btn-view-more');
+const galleryGrid = document.getElementById('gallery-grid');
+if (btnViewMore && galleryGrid) {
+  btnViewMore.addEventListener('click', () => {
+    const expanded = galleryGrid.classList.toggle('expanded');
+    btnViewMore.textContent = expanded ? 'Show Less ↑' : 'View All 11 Photos ↓';
+    if (!expanded) {
+      document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
+
+// --- Scroll Reveal ---
+const revealEls = document.querySelectorAll(
+  '#about .about-grid, #services .service-card, .quote-wrapper, .section-eyebrow, .section-title, .section-sub'
+);
+revealEls.forEach(el => el.classList.add('reveal'));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// --- Quote Form Submit ---
+const form = document.getElementById('quote-form');
+const successMsg = document.getElementById('form-success');
+const serviceError = document.getElementById('service-error');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const checked = form.querySelectorAll('.checkbox-item.checked');
+  if (checked.length === 0) {
+    serviceError.classList.add('visible');
+    serviceError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  const action = form.getAttribute('action');
+
+  if (action.includes('YOUR_FORM_ID')) {
+    successMsg.style.display = 'block';
+    successMsg.textContent = '✅ Form works! Connect Formspree (see README) to receive emails.';
+    form.reset();
+    form.querySelectorAll('.checkbox-item').forEach(i => i.classList.remove('checked'));
+    return;
+  }
+
+  const data = new FormData(form);
+  try {
+    const res = await fetch(action, {
+      method: 'POST', body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      successMsg.style.display = 'block';
+      successMsg.textContent = "✅ Thanks! We'll get back to you within 24 hours.";
+      form.reset();
+      form.querySelectorAll('.checkbox-item').forEach(i => i.classList.remove('checked'));
+      form.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = true);
+    } else {
+      throw new Error();
+    }
+  } catch {
+    alert('Something went wrong. Please call us directly!');
+  }
+});
+
+// --- Smooth scroll ---
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+  </script>
+</body>
+</html>
